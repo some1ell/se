@@ -1,0 +1,39 @@
+{
+  "name": "Carthook tests",
+  "description": "Carthook selenium automation tests",
+  "license": "Carthook",
+  "authors": [
+    {
+      "name": "Sašo Krajnc",
+      "email": "saso@carthook.com"
+    },
+    {
+      "name": "Carthook",
+      "homepage": "https://carthook.com"
+    }
+  ],
+  "require": {
+    "lmc/steward": "^2.3",
+    "fzaninotto/faker": "~1.4",
+    "jolicode/jolinotif": "^1.3",
+    "simonbackx/slack-php-webhook": "^1.0",
+    "cleentfaar/slack": "^0.20.1"
+  },
+  "autoload": {
+    "psr-4": {
+      "My\\": "tests/",
+      "My\\Lib\\": "tests/lib/",
+      "My\\ProductOrder\\": "tests/categories/product_order/",
+      "My\\Carthook\\": "src/"
+    },
+    "files": [
+      "src/SlackAlerter/SlackAlerter.php",
+      "src/SlackAlerter/SlackAlerterTest.php"
+    ]
+  },
+  "config": {
+    "platform": {
+      "php": "5.6"
+    }
+  }
+}
