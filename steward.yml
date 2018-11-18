@@ -1,2 +1,1 @@
-# See https://github.com/lmc-eu/steward/wiki/Configuration-file for more information about the configuration file
 capabilities_resolver: My\Carthook\CustomCapabilitiesResolver

@@ -30,7 +30,7 @@ interface Constants {
     const SLACK_CHANNEL_ASSERT_ERRORS = "#assert-errors";
     const SLACK_CHANNEL_TEST_STEPS = "#test-steps";
     const SLACK_CHANNEL_TEST_ERRORS = "#test-errors";
-    const SLACK_TOKEN = "xoxp-229812613238-228846659315-267825155074-4c965a0946589ce222117659e2cb504d";
+    const SLACK_TOKEN = "xoxp-229812613238-228846659315-481060730791-05ab2ef6208a80fda1fb6b42dbf99f8d";
     const SLACK_NICKNAME = "Carthook";
 
     // Menu

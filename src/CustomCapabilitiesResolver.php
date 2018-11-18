@@ -18,6 +18,8 @@ use Lmc\Steward\ConfigProvider;
 use Lmc\Steward\Selenium\CustomCapabilitiesResolverInterface;
 use Lmc\Steward\Test\AbstractTestCase;
 use OndraM\CiDetector\CiDetector;
+use Facebook\WebDriver\Firefox\FirefoxProfile;
+use Facebook\WebDriver\Firefox\FirefoxDriver;
 
 /**
  * You can define capabilities for one test run using the `--capability` option of `steward run` command. However,
@@ -69,6 +71,33 @@ class CustomCapabilitiesResolver implements CustomCapabilitiesResolverInterface
             $capabilities->setCapability(ChromeOptions::CAPABILITY, $chromeOptions);
         }*/
 
+        // Run tests in Chrome Incognito
+        if ($this->config->browserName === WebDriverBrowserType::CHROME_I) {
+            $chromeOptions = new ChromeOptions();
+            $chromeOptions->addArguments(['--incognito', 'window-size=1310,1050', '--no-sandbox']);
+
+            $capabilities->setCapability(ChromeOptions::CAPABILITY, $chromeOptions);
+        }
+
+        // Run test in Chrome Headless
+        if ($this->config->browserName === WebDriverBrowserType::CHROME_H) {
+            $chromeOptions = new ChromeOptions();
+            $chromeOptions->addArguments(['--headless', 'window-size=1310,1050', '--no-sandbox', '--test-type', '--ignore-certificate-errors']);
+
+            $capabilities->setCapability(ChromeOptions::CAPABILITY, $chromeOptions);
+        }
+
+        // Run test in Firefox (suport for selenium v 3.8.1)
+        if ($this->config->browserName === WebDriverBrowserType::FIREFOX) {
+
+            // Firefox does not (as a intended feature) trigger "change" and "focus" events in javascript if not in active
+            // (focused) window. This would be a problem for concurrent testing - solution is to use focusmanager.testmode.
+            // See https://code.google.com/p/selenium/issues/detail?id=157
+            $firefoxOptions = new FirefoxProfile(); // see https://github.com/facebook/php-webdriver/wiki/FirefoxProfile
+            $firefoxOptions->setPreference('focusmanager.testmode', true);
+
+            $capabilities->setCapability(FirefoxDriver::PROFILE, $firefoxOptions);
+        }
 
         return $capabilities;
     }

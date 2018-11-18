@@ -1067,6 +1067,8 @@ class Steps extends AbstractComponent implements Constants {
      * @param $paymentProcessor
      * @param $processorStatus
      * @return array|bool
+     * @throws \Facebook\WebDriver\Exception\NoSuchElementException
+     * @throws \Facebook\WebDriver\Exception\TimeOutException
      */
     public function selectPaymentProcessorAndFillData($paymentProcessor, $processorStatus) {
 
@@ -1740,7 +1742,7 @@ class Steps extends AbstractComponent implements Constants {
         if ($connectProcessor && $adminLogin) {
 
             // Enable payment processor
-            $processorStatus = self::enablePaymentProcessor($paymentProcessor, $adminLogin);
+            $processorStatus = $this->enablePaymentProcessor($paymentProcessor, $adminLogin);
         }
 
         // ACTION -> Go to checkout page
@@ -2843,15 +2845,18 @@ class Steps extends AbstractComponent implements Constants {
             // Get funnel position (funnel position by tag is not included :: we should define this in order)
             $funnelPosition    = 0;
             $funnelProductName = "";
+            $partialCount = 0;
 
             foreach ($productDetails as $productKey => $product) {
 
                 // Loop thought the funnel and get positions for the first selected product
                 foreach ($product['funnel'] as $funnelStep => $partial) {
 
-                    foreach ($partial as $partialCount => $partialDetails) {
+                    foreach ($partial as $partialDetails) {
 
-                        $partialCount = $partialCount + 1;
+                        $partialCount = $partialCount++;
+
+                        $this->warn($partialCount);
 
                         // When first funnel product is added to a cart, mark position
                         if ($partialDetails['skip'] == false) {
