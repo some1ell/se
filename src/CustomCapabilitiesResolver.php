@@ -71,21 +71,7 @@ class CustomCapabilitiesResolver implements CustomCapabilitiesResolverInterface
             $capabilities->setCapability(ChromeOptions::CAPABILITY, $chromeOptions);
         }*/
 
-        // Run tests in Chrome Incognito
-        if ($this->config->browserName === WebDriverBrowserType::CHROME_I) {
-            $chromeOptions = new ChromeOptions();
-            $chromeOptions->addArguments(['--incognito', 'window-size=1310,1050', '--no-sandbox']);
 
-            $capabilities->setCapability(ChromeOptions::CAPABILITY, $chromeOptions);
-        }
-
-        // Run test in Chrome Headless
-        if ($this->config->browserName === WebDriverBrowserType::CHROME_H) {
-            $chromeOptions = new ChromeOptions();
-            $chromeOptions->addArguments(['--headless', 'window-size=1310,1050', '--no-sandbox', '--test-type', '--ignore-certificate-errors']);
-
-            $capabilities->setCapability(ChromeOptions::CAPABILITY, $chromeOptions);
-        }
 
         // Run test in Firefox (suport for selenium v 3.8.1)
         if ($this->config->browserName === WebDriverBrowserType::FIREFOX) {
