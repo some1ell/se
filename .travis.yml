@@ -36,7 +36,7 @@ before_script:
   - sleep 3 # wait until browsers starts
 
 script:
-  - ./vendor/bin/steward run dev $BROWSER --pattern doOrderWithCashOnDelivertTest.php -vvv # Run the tests in $BROWSER and specify an environment name
+  - ./vendor/bin/steward run dev $BROWSER --pattern doOrderWithCashOnDeliveryTest.php -vvv # Run the tests in $BROWSER and specify an environment name
 
 after_script:
   - ./vendor/bin/steward results -vvv
